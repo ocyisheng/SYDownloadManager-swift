@@ -16,9 +16,9 @@ class SYDownloadTaskModel: NSObject,NSCoding {
     var url: String?
     var type: String?
     var cacheFileName: String?
-    var totalSize: Int64?
-    var currenSize: Int64?
-    var progress: Float?
+    var totalSize: Int64? = 0
+    var currenSize: Int64? = 0
+    var progress: Float? = 0
     var state: SYDownloadTaskState?
     
     func encode(with aCoder: NSCoder) {

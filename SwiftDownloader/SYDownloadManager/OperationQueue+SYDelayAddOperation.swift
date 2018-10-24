@@ -43,7 +43,9 @@ extension OperationQueue {
             }
             return perations!
         }
-        set {}
+        set {
+            
+        }
     }
     
     var sy_operatinQueueObsever:__SYOperatinQueueObsever {
@@ -55,7 +57,9 @@ extension OperationQueue {
             }
             return observer!
         }
-        set {}
+        set {
+            
+        }
     }
     
     func syDelayRemove(operation:Operation) {
