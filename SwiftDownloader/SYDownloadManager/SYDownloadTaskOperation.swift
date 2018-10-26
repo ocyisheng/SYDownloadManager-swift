@@ -10,69 +10,75 @@ import Foundation.NSOperation
 
 class SYDownloadTaskOperation: Operation {
     var identify: String!
-    private  var dataTask: URLSessionDataTask?
-    private var _isExecuting: Bool {
+    private var dataTask: URLSessionDataTask?
+    private var _executing: Bool {
         willSet { willChangeValue(forKey: "isExecuting") }
         didSet { didChangeValue(forKey: "isExecuting") }
     }
-    private var _isFinished: Bool {
+    private var _finished: Bool {
         willSet { willChangeValue(forKey: "isFinished") }
         didSet { didChangeValue(forKey: "isFinished") }
     }
-    private var _isCancelled: Bool {
+    private var _cancelled: Bool {
         willSet { willChangeValue(forKey: "isCancelled") }
         didSet { didChangeValue(forKey: "isCancelled") }
     }
    
     init(dataTask: URLSessionDataTask) {
+       
         self.dataTask = dataTask
         self.identify = dataTask.currentRequest?.url?.absoluteString
-        _isFinished = false
-        _isExecuting = false
-        _isCancelled = false
+        _finished = false
+        _executing = false
+        _cancelled = false
         super.init()
     }
     override var isExecuting: Bool {
-        return _isExecuting
+        return _executing
     }
     override var isFinished: Bool {
-        return _isFinished
+        return _finished
     }
     override var isCancelled: Bool {
-        return _isCancelled
+        return _cancelled
     }
     override var isAsynchronous: Bool {
         return true
     }
-    func suspendTask() {
-        if self.isExecuting {
-            _isExecuting = false
-        }
-        self.cancel()
-    }
-    func removeTask() {
-        self.suspendTask()
-    }
-    func completionTask() {
-        if self.isFinished == false {
-            _isExecuting = false
-            _isFinished = true
-        }
-    }
+    
     override func start() {
         if self.isCancelled {
-            _isFinished = true
+            _finished = true
         }else {
-            _isExecuting = true
+            _executing = true
             self.dataTask?.resume()
         }
     }
     override func cancel() {
-        _isCancelled = true
+        _cancelled = true
         self.dataTask?.cancel()
         self.dataTask = nil
         //设置finished 为YES，operation将自动从queue中移除
         self.completionTask()
     }
+    
+    func suspendTask() {
+        if self.isExecuting {
+            _executing = false
+        }
+        self.cancel()
+    }
+    
+    func removeTask() {
+        self.suspendTask()
+    }
+    
+    func completionTask() {
+        if self.isFinished == false {
+            _executing = false
+            _finished = true
+        }
+    }
+  
     
 }

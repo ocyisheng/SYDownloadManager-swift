@@ -17,6 +17,7 @@
 		3E0A7473217DBC9300458514 /* SYDownloadTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A7472217DBC9300458514 /* SYDownloadTaskOperation.swift */; };
 		3E0A7475217DBCD000458514 /* SYDownloadTaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A7474217DBCD000458514 /* SYDownloadTaskModel.swift */; };
 		3E0A7477217DC34300458514 /* OperationQueue+SYDelayAddOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A7476217DC34300458514 /* OperationQueue+SYDelayAddOperation.swift */; };
+		3E51076B2181AF3B0058ABCB /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51076A2181AF3B0058ABCB /* DownloadTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		3E0A7472217DBC9300458514 /* SYDownloadTaskOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYDownloadTaskOperation.swift; sourceTree = "<group>"; };
 		3E0A7474217DBCD000458514 /* SYDownloadTaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SYDownloadTaskModel.swift; sourceTree = "<group>"; };
 		3E0A7476217DC34300458514 /* OperationQueue+SYDelayAddOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+SYDelayAddOperation.swift"; sourceTree = "<group>"; };
+		3E51076A2181AF3B0058ABCB /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
+		3E51076E2181CDAE0058ABCB /* SwiftDownloader-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftDownloader-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 				3E0A745B217DBA4800458514 /* AppDelegate.swift */,
 				3E0A745D217DBA4800458514 /* ViewController.swift */,
 				3E0A745F217DBA4800458514 /* Main.storyboard */,
+				3E51076A2181AF3B0058ABCB /* DownloadTableViewCell.swift */,
 				3E0A7462217DBA6300458514 /* Assets.xcassets */,
 				3E0A7464217DBA6300458514 /* LaunchScreen.storyboard */,
 				3E0A7467217DBA6300458514 /* Info.plist */,
@@ -83,6 +87,7 @@
 				3E0A7474217DBCD000458514 /* SYDownloadTaskModel.swift */,
 				3E0A7472217DBC9300458514 /* SYDownloadTaskOperation.swift */,
 				3E0A7476217DC34300458514 /* OperationQueue+SYDelayAddOperation.swift */,
+				3E51076E2181CDAE0058ABCB /* SwiftDownloader-Bridging-Header.h */,
 			);
 			path = SYDownloadManager;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 				TargetAttributes = {
 					3E0A7457217DBA4700458514 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -159,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E0A7473217DBC9300458514 /* SYDownloadTaskOperation.swift in Sources */,
+				3E51076B2181AF3B0058ABCB /* DownloadTableViewCell.swift in Sources */,
 				3E0A7471217DBC7200458514 /* SYDownloadTaskStore.swift in Sources */,
 				3E0A7475217DBCD000458514 /* SYDownloadTaskModel.swift in Sources */,
 				3E0A7477217DC34300458514 /* OperationQueue+SYDelayAddOperation.swift in Sources */,
@@ -308,7 +315,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZB3N429Z3;
 				INFOPLIST_FILE = SwiftDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,6 +326,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = shiyun.SwiftDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftDownloader/SYDownloadManager/SwiftDownloader-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -326,7 +337,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8ZB3N429Z3;
 				INFOPLIST_FILE = SwiftDownloader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -335,6 +348,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = shiyun.SwiftDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftDownloader/SYDownloadManager/SwiftDownloader-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
