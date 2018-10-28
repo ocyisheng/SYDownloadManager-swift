@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.downloadManager = SYDownloadTaskManager.init()
         self.downloadManager.setMaxTask(count: 3)
+        self.urlCount = self.downloadManager.allDownloadTaskModles().count
         self.downloadManager.downloadTaskCompletionHandle = {(url:String!, locationPath:String!) -> Void in
             print("完成" + "url:" + url + "\n local:" + locationPath)
         }
@@ -59,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.nameLabel?.text = String(indexPath.row)
         cell.stateLabel?.text = self.string(withState: model.state!)
-        cell.progress?.progress = model.progress!
+        cell.progress?.progress = model.progress
         return cell
     }
     

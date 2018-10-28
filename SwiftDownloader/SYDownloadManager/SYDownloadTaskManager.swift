@@ -16,6 +16,7 @@ class SYDownloadTaskManager: NSObject,URLSessionDataDelegate {
     private var allowsCellularAccess = false
     private var maxTaskCount = 3
     
+    //所有的回调是异步都是在子线程中
     var downloadTaskCompletionHandle: ((_ url: String, _ locationPath: String) -> Void)?
     var downloadTaskProgressHandle: ((_ url: String, _ progress: Float) -> Void)?
     var downloadTaskStateChangedHandle:((_ model: SYDownloadTaskModel) -> Void)?
@@ -35,7 +36,7 @@ class SYDownloadTaskManager: NSObject,URLSessionDataDelegate {
     }
 
     func allDownloadTaskModles() -> [SYDownloadTaskModel] {
-        return [SYDownloadTaskModel]((self.taskStore.taskModels()?.values)!)
+        return ([SYDownloadTaskModel])(self.taskStore.taskModels().values)
     }
     //设置移动网络是否导通
     func setCellularAccess(isAllow: Bool) {
@@ -87,7 +88,7 @@ class SYDownloadTaskManager: NSObject,URLSessionDataDelegate {
         if let model = self.taskStore.taskModel(with: url) {
              if model.state == SYDownloadTaskState.added || model.state == SYDownloadTaskState.suspend || model.state == SYDownloadTaskState.fail {
                 var request = URLRequest.init(url:(URL.init(string: url))!)
-                let currenSizeStr = NSString.init(format: "%lld", model.currenSize!)
+                let currenSizeStr = NSString.init(format: "%lld", model.currenSize)
                 request.setValue("bytes=\(currenSizeStr)-", forHTTPHeaderField: "range")
                 let dataTask = self.session?.dataTask(with: request)
                 let taskOp = SYDownloadTaskOperation.init(dataTask: dataTask!)
@@ -143,7 +144,7 @@ class SYDownloadTaskManager: NSObject,URLSessionDataDelegate {
         if let handle = self.downloadTaskProgressHandle {
             if let model = self.taskStore.taskModel(with: url!) {
                 //回调进度
-                handle(url!,model.progress!)
+                handle(url!,model.progress)
             }
         }
     }

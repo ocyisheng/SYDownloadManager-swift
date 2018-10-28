@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class SYDownloadTaskStore: NSObject {
     private var outputStreamDic = Dictionary<String, OutputStream>()//储存属性
     private var taskModelDic = Dictionary<String, SYDownloadTaskModel>()//
@@ -30,13 +31,15 @@ class SYDownloadTaskStore: NSObject {
         let dic = NSKeyedUnarchiver.unarchiveObject(withFile: self.cacheDirect + "/" + "downloadTask_archives.arch") as? Dictionary<String, SYDownloadTaskModel>
         if dic != nil {
             for (_, model) in dic! {
-                if model.state == SYDownloadTaskState.downloading || model.state == SYDownloadTaskState.waiting {
-                    model.state = SYDownloadTaskState.suspend
+                if model.state == .downloading || (model.state == .waiting && model.currenSize > 0) {
+                    model.state = .suspend
+                }else if model.state == .waiting {
+                    model.state = .added
                 }
             }
             self.taskModelDic = dic!
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(willTerminate), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willTerminate), name: Notification.Name.UIApplicationWillTerminate, object: nil)
         
     }
    
@@ -76,7 +79,7 @@ class SYDownloadTaskStore: NSObject {
             let bytes = [UInt8](data)
             stream.write(UnsafePointer<UInt8>(bytes), maxLength: bytes.count)
             if let model = self.taskModelDic[URLStr] {
-                model.currenSize! += Int64(bytes.count)
+                model.currenSize += Int64(bytes.count)
                 if let total = model.totalSize {
                     if  let current = model.currenSize {
                         model.progress = Float(Float(current) / Float(total)) 
@@ -95,7 +98,7 @@ class SYDownloadTaskStore: NSObject {
     func taskModel(with URLStr: String) -> SYDownloadTaskModel? {
         return  self.taskModelDic[URLStr]
     }
-    func taskModels() -> Dictionary<String, SYDownloadTaskModel>?{
+    func taskModels() -> Dictionary<String, SYDownloadTaskModel>{
         return  self.taskModelDic
     }
     func cacheFilePath(with URLStr: String) -> String {

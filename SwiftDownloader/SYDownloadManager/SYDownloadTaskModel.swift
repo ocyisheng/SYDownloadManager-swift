@@ -9,16 +9,16 @@
 import Foundation
 
 enum SYDownloadTaskState:Int {
-    case added = 1 , downloading, suspend, finshed, waiting, fail
+    case added = 1, waiting, downloading, suspend, finshed, fail
 }
 
 class SYDownloadTaskModel: NSObject,NSCoding {
     var url: String?
     var type: String?
     var cacheFileName: String?
-    var totalSize: Int64? = 0
-    var currenSize: Int64? = 0
-    var progress: Float? = 0.0
+    var totalSize: Int64! = 0
+    var currenSize: Int64! = 0
+    var progress: Float! = 0.0
     private var _state:Int?
     var state: SYDownloadTaskState? {
         set {
@@ -43,10 +43,9 @@ class SYDownloadTaskModel: NSObject,NSCoding {
         url = aDecoder.decodeObject(forKey: "url") as? String
         type = aDecoder.decodeObject(forKey: "type") as? String
         cacheFileName = aDecoder.decodeObject(forKey: "cacheFileName") as? String
-        progress =  aDecoder.decodeFloat(forKey: "progress")
-        totalSize =  aDecoder.decodeInt64(forKey: "totalSize")
-        currenSize =  aDecoder.decodeInt64(forKey: "currenSize")
-        _state =  aDecoder.decodeInteger(forKey: "_state")
-        
+        progress =  aDecoder.decodeObject(forKey: "progress") as? Float
+        totalSize =  aDecoder.decodeObject(forKey: "totalSize") as? Int64
+        currenSize =  aDecoder.decodeObject(forKey: "currenSize") as? Int64
+        _state =  aDecoder.decodeObject(forKey: "_state") as? Int
     }
 }
